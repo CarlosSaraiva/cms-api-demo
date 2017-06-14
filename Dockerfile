@@ -1,7 +1,7 @@
-FROM node:6.5
+FROM node:8.1.0
 
-ENV APP_NAME=starter-app
-ENV APP_USER=starter
+ENV APP_NAME=cms-just-demo
+ENV APP_USER=dev
 ENV USER_HOME=/home/$APP_USER
 ENV APP_HOME=$USER_HOME/$APP_NAME
 
