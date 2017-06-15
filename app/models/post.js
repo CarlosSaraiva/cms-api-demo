@@ -1,7 +1,5 @@
-'use strict';
-
 /**
- * Module dependencies.
+ * Dependencies
  */
 
 const mongoose = require('mongoose');
@@ -14,7 +12,7 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
   title: { type : String, default : '', trim : true },
   body: { type : String, default : '', trim : true },  
-  createdAt  : { type : Date, default : Date.now },
+  createdAt  : { type : Date, default : Date.now }
 });
 
 /**
@@ -22,22 +20,8 @@ const PostSchema = new Schema({
  */
 
 PostSchema.statics = {
-
   /**
-   * Find article by id
-   *
-   * @param {ObjectId} id
-   * @api private
-   */
-
-  findById: function (_id) {
-    return this.findOne({ _id })
-      // .populate('user', 'name email username')
-      .exec();
-  },
-
-  /**
-   * List articles
+   * List all the blog posts
    *
    * @param {Object} options
    * @api private
@@ -46,7 +30,6 @@ PostSchema.statics = {
   findAll: function ({ criteria = {} } = {}) {
 
     return this.find(criteria)
-      // .populate('user', 'name username')
       .sort({ createdAt: -1 })
       .exec();
   }

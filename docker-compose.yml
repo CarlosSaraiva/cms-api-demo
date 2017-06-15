@@ -14,7 +14,7 @@ web:
   ports:
     - '3000:3000'
   volumes:
-    - .:/home/ces/cms-just-demo
-    - ./node_modules:/home/ces/cms-just-demo/node_modules
+    - .:/home/dev/cms-api-demo
+    - ./node_modules:/home/dev/cms-api-demo/node_modules
   links:
     - db:dockerized_mongo

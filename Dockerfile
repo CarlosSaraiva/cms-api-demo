@@ -1,6 +1,6 @@
 FROM node:8.1.0
 
-ENV APP_NAME=cms-just-demo
+ENV APP_NAME=cms-api-demo
 ENV APP_USER=dev
 ENV USER_HOME=/home/$APP_USER
 ENV APP_HOME=$USER_HOME/$APP_NAME

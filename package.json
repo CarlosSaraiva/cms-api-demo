@@ -1,13 +1,14 @@
 {
-  "name": "CMS-Just-Demo",
+  "name": "cms-api-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Desafio back-end para a Just Digital",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Carlos Saraiva <carlos.saraiva@msn.com>",
+  "repository": "github:example/repo",
+  "license": "",
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.14.0",

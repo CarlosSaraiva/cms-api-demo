@@ -1,36 +1,70 @@
-const express    = require('express')
-const app        = express()
-const mongoose   = require('mongoose')
+/**
+ * Dependencies
+ */
+
+const express    = require('express');
+const app        = express();
+const mongoose   = require('mongoose');
 const slug       = require('mongoose-slug-generator');
-const bodyParser = require('body-parser')
-const mongoUrl   = process.env.NODE_ENV === 'docker-development' ? 'dockerized_mongo' : 'localhost'
+const bodyParser = require('body-parser');
+const mongoUrl   = process.env.NODE_ENV === 'docker-development' ? 'dockerized_mongo' : 'localhost';
 
-//Models
-const Post = require('./app/models/post.js')
+/**
+ * Routes
+ */
+const Post = require('./app/routes/post.js')
 
-mongoose.connect(`mongodb://${mongoUrl}/starter-db`)
-mongoose.Promise = global.Promise
-mongoose.plugin(slug)
+/**
+ * Configuring moongose
+ */
+mongoose.connect(`mongodb://${mongoUrl}/starter-db`);
+mongoose.Promise = global.Promise;
+mongoose.plugin(slug);
 
-// parse application/json
-app.use(bodyParser.json())
 
-app.get('/', (req, res) => res.send(`<ul>
-                                      <li>GET /api/v1/dogs</li>
-                                      <li>POST /api/v1/dog</li>
-                                    </ul>`))
+/**
+ * Main path returing a html with all routes
+ */
 
-app.get('/api/v1/posts', async (req, res) => {
-  Post.findAll(req.query)
-    .then(posts => res.status(200).json(posts))
-    .catch(error => res.status(500).json(error))
+const template = `
+  <ul>
+    <li>GET ------ /api/v1/post</li>
+    <li>GET ------ /api/v1/post/:id</li>
+    <li>POST ----- /api/v1/post</li>
+    <li>PUT ------ /api/v1/dog/:id</li>
+    <li>DELETE -- /api/v1/dog/:id</li>
+  </ul>`
+
+app.get('/', (req, res) => res.send(template));
+
+/**
+ * Endpoints or future endpoints initialized here
+ */
+app.use('/api/v1', require('./app/routes/post.js'));
+
+/**
+ * If a path was not found, throw 404
+ */
+  
+app.use((req, res, next) => {
+  var err = new Error('Not Found')
+  err.status = 404
+  next(err)
 })
 
-app.post('/api/v1/post/', (req, res) => {
-  new Post(req.body)
-    .save()
-    .then(post => res.status(200).json(post))
-    .catch(error => res.status(500).send(error))
-})
+/**
+ * If something goes wrong, it should be ended here
+ */
 
-app.listen(3000, () => console.log('starter-app listening on port 3000!'))
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).send({
+    message: err.message,
+    title: 'error'
+  })
+});
+
+/**
+ * The next line it's  where all the dreams finally becomes aware of the world wide web
+ */
+
+app.listen(3005, () => console.log('cms-api-demo listening on port 3000!'));
