@@ -5,7 +5,6 @@
 const express    = require('express');
 const app        = express();
 const mongoose   = require('mongoose');
-const slug       = require('mongoose-slug-generator');
 const bodyParser = require('body-parser');
 const mongoUrl   = process.env.NODE_ENV === 'docker-development' ? 'dockerized_mongo' : 'localhost';
 
@@ -17,10 +16,8 @@ const Post = require('./app/routes/post.js')
 /**
  * Configuring moongose
  */
-mongoose.connect(`mongodb://${mongoUrl}/starter-db`);
+mongoose.connect(`mongodb://${mongoUrl}/cms-api-demo`);
 mongoose.Promise = global.Promise;
-mongoose.plugin(slug);
-
 
 /**
  * Main path returing a html with all routes
