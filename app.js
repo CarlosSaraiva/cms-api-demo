@@ -67,4 +67,4 @@ app.use((err, req, res, next) => {
  * The next line it's  where all the dreams finally becomes aware of the world wide web
  */
 
-app.listen(3005, () => console.log('cms-api-demo listening on port 3000!'));
+app.listen(3000, () => console.log('cms-api-demo listening on port 3000!'));
